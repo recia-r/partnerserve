@@ -13,13 +13,17 @@
         users [{:user/id (uuid/random)
                 :user/name "Alice"
                 :user/email "alice@example.com"
-                :user/topic-ids (set (take 2 (shuffle (map :topic/id topics))))
-                :user/availability (model/random-availability)}
+                :user/topic-ids {:topic-ids/session-type #{"match"}
+                                 :topic-ids/skill-level #{"beginner"}}
+                :user/availability (model/random-availability)
+                :user/court-locations #{"flushing"}}
                {:user/id (uuid/random)
                 :user/name "Bob"
                 :user/email "bob@example.com"
-                :user/topic-ids (set (take 2 (shuffle (map :topic/id topics))))
-                :user/availability (model/random-availability)}]]
+                :user/topic-ids {:topic-ids/session-type #{"match"}
+                                 :topic-ids/skill-level #{"beginner"}}
+                :user/availability (model/random-availability)
+                :user/court-locations #{"flushing"}}]]
     (doseq [topic topics]
       (db/save-topic! topic))
     (doseq [user users]
